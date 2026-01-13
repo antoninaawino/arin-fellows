@@ -202,7 +202,7 @@ export default function FridayReviewsPage() {
                                     <Users className="w-6 h-6 text-cyan-300" />
                                     <div>
                                         <div className="text-lg font-semibold text-white">Virtual Platform</div>
-                                        <div className="text-sm text-white/70">Due to COVID-19</div>
+                                        {/* <div className="text-sm text-white/70">Due to COVID-19</div> */}
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3">
@@ -228,7 +228,7 @@ export default function FridayReviewsPage() {
                             </div>
                             <div className="text-gray-700 leading-relaxed space-y-4">
                                 <p>
-                                    The Africa Research and Impact Network (ARIN) organizes weekly and monthly research reviews where African scholars and policy makers share their research findings and outputs with reviewers and peers. Through this platform researchers have access to peer learning that enable them to understand the state of research gaps and needs. Due to COVID-19 the reviews are carried out virtually.
+                                    The Africa Research and Impact Network (ARIN) organizes weekly and monthly research reviews where African scholars and policy makers share their research findings and outputs with reviewers and peers. Through this platform researchers have access to peer learning that enable them to understand the state of research gaps and needs. The reviews are carried out virtually.
                                 </p>
                             </div>
                         </div>

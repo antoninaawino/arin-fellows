@@ -66,7 +66,8 @@ const ARINNavbar = () => {
                         </div>
                         <div className="flex items-center space-x-2">
                             <MapPin size={14} />
-                            <span>ACK Gardens House, Bishop Road, 1st Ngong Ave, Upperhill</span>
+                            <span>ACK Gardens House, 1st Floor,
+                                Bishop Road, 1St Ngong Avenue, Upperhill, Nairobi</span>
                         </div>
                     </div>
                     <div className="flex items-center space-x-3">

@@ -89,7 +89,7 @@ const ArinFellowsFooter = () => {
                                     Fellows
                                 </h4>
                                 <div className="space-y-2 ml-4">
-                                    {['Accountable Adaptation Fellows', 'SDG Fellows', 'ARI Fellows'].map((fellow, index) => (
+                                    {['Accountable Adaptation Fellows', 'SDG Fellows', 'ARIN Fellows'].map((fellow, index) => (
                                         <a key={fellow}
                                             href="#"
                                             className="block text-sm text-[#9bc8ce]/70 hover:text-[#9bc8ce] transition-all duration-300 hover:translate-x-1 transform"

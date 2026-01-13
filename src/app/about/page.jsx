@@ -80,11 +80,11 @@ const ARINFellowshipAbout = () => {
             position: "ARIN Fellowship Manager",
             image: "/img/Akinyi2.jpg",
         },
-        {
-            name: "Edna Kowenje",
-            position: "ARIN Fellowship Coordinator",
-            image: "/img/edna.jpg",
-        },
+        // {
+        //     name: "Edna Kowenje",
+        //     position: "ARIN Fellowship Coordinator",
+        //     image: "/img/edna.jpg",
+        // },
     ]
 
     const stats = [

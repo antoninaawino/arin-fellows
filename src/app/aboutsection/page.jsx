@@ -143,7 +143,7 @@ const ARINFellowshipAbout = () => {
                             </div>
                         </Card>
 
-                        <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden group">
+                        {/* <Card className="bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden group">
                             <div className="p-8">
                                 <div className="relative w-40 h-48 mx-auto mb-6 rounded-xl overflow-hidden bg-gray-100">
                                     <Image
@@ -159,7 +159,7 @@ const ARINFellowshipAbout = () => {
                                     <div className="w-12 h-0.5 bg-[#48a4bb] rounded mx-auto"></div>
                                 </div>
                             </div>
-                        </Card>
+                        </Card> */}
                     </div>
                 </div>
             </div>
