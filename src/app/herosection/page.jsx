@@ -1,16 +1,21 @@
 "use client";
 import { useState, useEffect } from 'react'
-import { Users, BookOpen, ArrowRight, Award, Globe, Sparkles } from "lucide-react"
+import { Users, BookOpen, ArrowRight, Award, Globe, Sparkles, Play, Volume2 } from "lucide-react"
 
 export default function MultiFellowshipHero() {
     const [isVisible, setIsVisible] = useState(false)
+    const [showVideo, setShowVideo] = useState(false)
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+    const [activeCard, setActiveCard] = useState(null)
 
     useEffect(() => {
         setIsVisible(true)
 
         const handleMouseMove = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY })
+            setMousePosition({
+                x: (e.clientX - window.innerWidth / 2) / 50,
+                y: (e.clientY - window.innerHeight / 2) / 50
+            })
         }
 
         window.addEventListener('mousemove', handleMouseMove)
@@ -28,146 +33,256 @@ export default function MultiFellowshipHero() {
         }
     };
 
-    return (
-        <div className="relative bg-gradient-to-br from-white via-gray-50 to-white overflow-hidden">
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Floating circles */}
-                <div className="absolute top-20 left-10 w-72 h-72 bg-[#14234d]/5 rounded-full blur-3xl animate-float"></div>
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#14234d]/5 rounded-full blur-3xl animate-float-delayed"></div>
-                <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-200/10 rounded-full blur-3xl animate-float-slow"></div>
+    const stats = [
+        { icon: Users, number: '200+', label: 'Active Fellows', color: 'from-blue-500 to-cyan-500', desc: 'Researchers making impact' },
+        { icon: Globe, number: '38+', label: 'Countries', color: 'from-purple-500 to-pink-500', desc: 'Across Sub-Saharan Africa' },
+        { icon: BookOpen, number: '5+', label: 'Programs', color: 'from-orange-500 to-red-500', desc: 'Specialized fellowships' },
+        { icon: Award, number: '10+', label: 'Years Impact', color: 'from-green-500 to-emerald-500', desc: 'Of transformative work' }
+    ]
 
-                {/* Animated dots pattern */}
-                <div className="absolute top-0 left-0 w-full h-full opacity-30">
-                    <div className="absolute top-1/4 left-1/3 w-2 h-2 bg-[#14234d] rounded-full animate-ping-slow"></div>
-                    <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-[#14234d] rounded-full animate-ping-slow" style={{ animationDelay: '1s' }}></div>
-                    <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-[#14234d] rounded-full animate-ping-slow" style={{ animationDelay: '2s' }}></div>
+    return (
+        <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
+
+            {/* Dynamic Animated Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {/* Gradient Orbs with Parallax */}
+                <div
+                    className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-br from-[#14234d]/10 to-blue-400/10 rounded-full blur-3xl"
+                    style={{
+                        transform: `translate(${mousePosition.x * 2}px, ${mousePosition.y * 2}px)`,
+                        transition: 'transform 0.3s ease-out'
+                    }}
+                ></div>
+                <div
+                    className="absolute bottom-0 -right-20 w-96 h-96 bg-gradient-to-tl from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"
+                    style={{
+                        transform: `translate(${mousePosition.x * -2}px, ${mousePosition.y * -2}px)`,
+                        transition: 'transform 0.3s ease-out'
+                    }}
+                ></div>
+                <div
+                    className="absolute top-1/2 left-1/2 w-72 h-72 bg-gradient-to-br from-cyan-400/10 to-blue-400/10 rounded-full blur-3xl"
+                    style={{
+                        transform: `translate(${mousePosition.x * 3}px, ${mousePosition.y * 3}px)`,
+                        transition: 'transform 0.3s ease-out'
+                    }}
+                ></div>
+
+                {/* Animated Grid Pattern */}
+                <div className="absolute inset-0 opacity-5">
+                    <div className="absolute inset-0" style={{
+                        backgroundImage: `
+                            linear-gradient(to right, #14234d 1px, transparent 1px),
+                            linear-gradient(to bottom, #14234d 1px, transparent 1px)
+                        `,
+                        backgroundSize: '60px 60px'
+                    }}></div>
                 </div>
 
-                {/* Parallax moving elements */}
-                <div
-                    className="absolute top-1/4 right-1/4 w-32 h-32 border-2 border-[#14234d]/10 rounded-full transition-transform duration-1000"
-                    style={{
-                        transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`
-                    }}
-                ></div>
-                <div
-                    className="absolute bottom-1/4 left-1/3 w-24 h-24 border-2 border-[#14234d]/10 rounded-lg rotate-45 transition-transform duration-1000"
-                    style={{
-                        transform: `translate(${mousePosition.x * -0.02}px, ${mousePosition.y * -0.02}px) rotate(45deg)`
-                    }}
-                ></div>
+                {/* Floating Particles */}
+                <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#14234d]/20 rounded-full animate-float-particle"></div>
+                <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-blue-400/30 rounded-full animate-float-particle-delayed"></div>
+                <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-purple-400/30 rounded-full animate-float-particle-slow"></div>
+                <div className="absolute top-2/3 right-1/4 w-3 h-3 bg-cyan-400/20 rounded-full animate-float-particle"></div>
             </div>
 
-            <div className="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center py-12 md:py-16 lg:py-20 min-h-[85vh]">
+            <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
 
-                    {/* Left Column - Text Content */}
-                    <div className={`space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                        {/* Top badge with sparkle animation */}
-                        <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#14234d]/5 to-blue-50 rounded-full px-5 py-2 animate-shine">
+                {/* Hero Header with Animation */}
+                <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+
+                    {/* Animated Badge */}
+                    <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#14234d]/10 via-blue-500/10 to-purple-500/10 backdrop-blur-sm rounded-full px-6 py-2.5 mb-8 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                        <div className="relative">
                             <Sparkles className="w-4 h-4 text-[#14234d] animate-pulse" />
-                            <p className="text-[#14234d] text-sm font-medium">
-                                Africa Research & Impact Network
-                            </p>
+                            <div className="absolute inset-0 bg-[#14234d]/20 blur-md animate-pulse"></div>
                         </div>
-
-                        {/* Main Heading with gradient animation */}
-                        <div>
-                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#14234d] leading-tight mb-6">
-                                Empowering{' '}
-                                <span className="relative inline-block">
-                                    <span className="relative z-10">African</span>
-                                    <span className="absolute bottom-2 left-0 w-full h-4 bg-[#14234d]/10 -rotate-1 animate-pulse"></span>
-                                </span>
-                                {' '}Researchers
-                            </h1>
-                            <p className="text-gray-600 text-lg md:text-xl leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                                Connecting 200+ researchers across 38+ Sub-Saharan African countries to drive transformative research and create lasting impact.
-                            </p>
-                        </div>
-
-                        {/* CTA Buttons with hover effects */}
-                        <div className="flex flex-wrap gap-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-                            <button
-                                onClick={() => scrollToSection('fellows-overview')}
-                                className="group relative bg-[#14234d] hover:bg-[#1a2f5f] text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-2 flex items-center text-lg overflow-hidden"
-                            >
-                                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></span>
-                                <span className="relative">Explore Fellows</span>
-                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform relative" />
-                            </button>
-                            <button
-                                onClick={() => scrollToSection('fellowship-activities')}
-                                className="group border-2 border-gray-300 text-gray-700 hover:border-[#14234d] hover:text-[#14234d] hover:bg-[#14234d]/5 font-semibold px-8 py-4 rounded-lg transition-all duration-300 text-lg hover:-translate-y-1"
-                            >
-                                Learn More
-                            </button>
-                        </div>
+                        <span className="text-[#14234d] text-sm font-semibold tracking-wide">
+                            ARIN Fellows - Africa Research & Impact Network
+                        </span>
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                     </div>
 
-                    {/* Right Column - Hero Image with animations */}
-                    <div className={`relative transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                        <div className="relative">
-                            {/* Floating decorative elements around image */}
-                            <div className="absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-[#14234d]/20 to-blue-200/20 rounded-2xl animate-float-rotate"></div>
-                            <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-br from-blue-200/20 to-[#14234d]/20 rounded-full animate-float-reverse"></div>
-                            <div className="absolute top-1/4 -right-4 w-16 h-16 border-4 border-[#14234d]/10 rounded-full animate-pulse-slow"></div>
+                    {/* Main Title with Gradient Effect */}
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight">
+                        <span className="block bg-gradient-to-r from-[#14234d] via-blue-600 to-purple-600 bg-clip-text text-transparent animate-gradient mb-3">
+                            ARIN Fellows
+                        </span>
+                        <span className="block text-[#14234d] text-4xl md:text-5xl lg:text-6xl">
+                            Empowering African Researchers
+                        </span>
+                    </h1>
 
-                            {/* Main Image Container with 3D hover effect */}
-                            <div className="relative rounded-3xl overflow-hidden shadow-2xl group hover:shadow-[0_30px_70px_rgba(20,35,77,0.3)] transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
-                                <img
-                                    src="/img/fellowship-image.webp"
-                                    alt="ARIN Fellowship Network"
-                                    className="w-full h-auto transition-transform duration-700 group-hover:scale-105"
-                                />
+                    <p className="text-gray-600 text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto mb-10 font-light">
+                        Connecting <span className="font-bold text-[#14234d]">200+ researchers</span> across <span className="font-bold text-[#14234d]">38+ countries</span> to drive transformative research and create lasting impact
+                    </p>
 
-                                {/* Animated gradient overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#14234d]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    {/* Enhanced CTA Buttons */}
+                    <div className="flex flex-wrap gap-4 justify-center items-center mb-8">
+                        <button
+                            onClick={() => scrollToSection('fellows-overview')}
+                            className="group relative bg-gradient-to-r from-[#14234d] to-[#1a2f5f] text-white font-bold px-10 py-5 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-2 overflow-hidden"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <span className="relative flex items-center">
+                                Explore Fellows
+                                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                            </span>
+                        </button>
 
-                                {/* Single elegant badge with animation */}
-                                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-105 animate-slide-up">
-                                    <div className="flex items-center justify-between">
-                                        <div>
-                                            <p className="text-3xl font-bold text-[#14234d] mb-1 animate-count-up">200+</p>
-                                            <p className="text-sm text-gray-600">Active Fellows</p>
-                                        </div>
-                                        <div className="h-12 w-px bg-gray-300"></div>
-                                        <div className="text-right">
-                                            <p className="text-3xl font-bold text-[#14234d] mb-1 animate-count-up" style={{ animationDelay: '0.2s' }}>38+</p>
-                                            <p className="text-sm text-gray-600">Countries</p>
-                                        </div>
-                                    </div>
-                                </div>
+                        <button
+                            onClick={() => scrollToSection('fellowship-activities')}
+                            className="group relative border-3 border-[#14234d] text-[#14234d] font-bold px-10 py-5 rounded-2xl transition-all duration-300 hover:bg-[#14234d] hover:text-white hover:-translate-y-2 shadow-lg hover:shadow-xl"
+                        >
+                            Learn More
+                        </button>
+
+                        <div className="flex items-center gap-2 text-sm text-gray-500 ml-4">
+                            <div className="flex -space-x-2">
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white"></div>
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white"></div>
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-white"></div>
                             </div>
-
-                            {/* Floating badge accent */}
-                            <div className="absolute -top-4 -right-4 bg-[#14234d] text-white rounded-full p-3 shadow-lg animate-bounce-slow">
-                                <Award className="w-6 h-6" />
-                            </div>
+                            <span className="font-medium">Join 200+ ARIN Fellows</span>
                         </div>
                     </div>
                 </div>
 
-                {/* Stats Bar with staggered animation */}
-                <div className={`pb-20 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-                        {[
-                            { icon: Users, number: '200+', label: 'Fellows', delay: '0s' },
-                            { icon: Globe, number: '38+', label: 'Countries', delay: '0.1s' },
-                            { icon: BookOpen, number: '5+', label: 'Programs', delay: '0.2s' },
-                            { icon: Award, number: '10+', label: 'Years Impact', delay: '0.3s' }
-                        ].map((stat, index) => (
+                {/* Video Section - Enhanced with Glassmorphism */}
+                <div className={`max-w-6xl mx-auto mb-20 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                    <div className="relative">
+
+                        {/* Glow Effect Behind Video */}
+                        <div className="absolute -inset-4 bg-gradient-to-r from-[#14234d]/20 via-blue-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-60"></div>
+
+                        {/* Video Container with Glassmorphism */}
+                        <div className="relative bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl p-2 md:p-3 border border-white/20">
+
+                            <div className="relative rounded-2xl overflow-hidden">
+                                {!showVideo ? (
+                                    // Enhanced Video Thumbnail
+                                    <div className="relative cursor-pointer group" onClick={() => setShowVideo(true)}>
+                                        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                                            <img
+                                                src="/img/fellowship-image.webp"
+                                                alt="Watch Our Impact Story"
+                                                className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                            />
+
+                                            {/* Gradient Overlay */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent group-hover:from-black/70 transition-all duration-300"></div>
+
+                                            {/* Animated Play Button */}
+                                            <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                                <div className="relative mb-8">
+                                                    {/* Ripple Effects */}
+                                                    <div className="absolute inset-0 bg-white/30 rounded-full animate-ping"></div>
+                                                    <div className="absolute inset-0 bg-white/20 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+
+                                                    {/* Main Play Button */}
+                                                    <div className="relative bg-white rounded-full p-8 md:p-10 shadow-2xl group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-white group-hover:to-blue-50 transition-all duration-300">
+                                                        <Play className="w-14 h-14 md:w-20 md:h-20 text-[#14234d] fill-[#14234d] ml-2" />
+                                                    </div>
+                                                </div>
+
+                                                {/* Text Content */}
+                                                <div className="text-center px-6">
+                                                    <h2 className="text-white text-3xl md:text-5xl font-bold mb-3 drop-shadow-lg">
+                                                        ARIN Fellows Impact Story
+                                                    </h2>
+                                                    <p className="text-white/90 text-lg md:text-xl mb-4 drop-shadow">
+                                                        See how ARIN Fellows are transforming African research
+                                                    </p>
+                                                    <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                                                        <Volume2 className="w-4 h-4 text-white" />
+                                                        <span className="text-white text-sm font-medium">Audio Available</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Duration Badge with Icon */}
+                                            <div className="absolute top-6 right-6 bg-black/90 backdrop-blur-md text-white px-4 py-2 rounded-xl text-base font-bold flex items-center gap-2 shadow-lg">
+                                                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                                8:00
+                                            </div>
+
+                                            {/* Bottom Info Bar */}
+                                            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent backdrop-blur-sm">
+                                                <div className="flex items-center justify-between text-white text-sm">
+                                                    <span className="font-medium">ARIN Fellows Impact Video</span>
+                                                    <span className="opacity-80">Click to play</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    // Video Player
+                                    <div className="relative w-full bg-black">
+                                        <video
+                                            className="w-full h-auto"
+                                            controls
+                                            autoPlay
+                                            playsInline
+                                        >
+                                            <source src="/img/video/video1.mp4" type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Floating Elements Around Video */}
+                        <div className="absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-2xl rotate-12 blur-sm animate-float"></div>
+                        <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-purple-400/30 to-pink-400/30 rounded-full blur-sm animate-float-delayed"></div>
+                        <div className="absolute top-1/2 -right-8 w-16 h-16 bg-gradient-to-br from-orange-400/30 to-red-400/30 rounded-lg rotate-45 blur-sm animate-float-slow"></div>
+                    </div>
+                </div>
+
+                {/* Interactive Stats Cards */}
+                <div className={`max-w-6xl mx-auto transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {stats.map((stat, index) => (
                             <div
                                 key={index}
-                                className="text-center group cursor-pointer animate-fade-in-up"
-                                style={{ animationDelay: stat.delay }}
+                                className="group relative"
+                                onMouseEnter={() => setActiveCard(index)}
+                                onMouseLeave={() => setActiveCard(null)}
                             >
-                                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gray-100 mb-3 group-hover:bg-[#14234d] transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                                    <stat.icon className="w-7 h-7 text-[#14234d] group-hover:text-white transition-colors duration-300" />
+                                {/* Card Glow Effect */}
+                                <div className={`absolute -inset-1 bg-gradient-to-r ${stat.color} rounded-2xl blur opacity-0 group-hover:opacity-30 transition-all duration-500`}></div>
+
+                                {/* Card Content */}
+                                <div className="relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 border border-gray-100 overflow-hidden">
+
+                                    {/* Gradient Background on Hover */}
+                                    <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+
+                                    {/* Icon */}
+                                    <div className="relative mb-4">
+                                        <div className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br ${stat.color} p-0.5 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                                            <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
+                                                <stat.icon className="w-8 h-8 text-[#14234d]" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Number */}
+                                    <p className="text-5xl font-bold bg-gradient-to-r from-[#14234d] to-blue-600 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">
+                                        {stat.number}
+                                    </p>
+
+                                    {/* Label */}
+                                    <p className="text-[#14234d] font-bold text-lg mb-1">{stat.label}</p>
+
+                                    {/* Description */}
+                                    <p className="text-gray-500 text-sm">{stat.desc}</p>
+
+                                    {/* Hover Arrow */}
+                                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-2 group-hover:translate-x-0">
+                                        <ArrowRight className="w-5 h-5 text-[#14234d]" />
+                                    </div>
                                 </div>
-                                <p className="text-3xl font-bold text-[#14234d] mb-1 group-hover:scale-110 transition-transform duration-300">{stat.number}</p>
-                                <p className="text-sm text-gray-600">{stat.label}</p>
                             </div>
                         ))}
                     </div>
@@ -176,63 +291,38 @@ export default function MultiFellowshipHero() {
 
             <style jsx>{`
                 @keyframes float {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-20px); }
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-20px) rotate(5deg); }
                 }
 
                 @keyframes float-delayed {
-                    0%, 100% { transform: translateY(0px) translateX(0px); }
-                    50% { transform: translateY(-30px) translateX(10px); }
+                    0%, 100% { transform: translateY(0px) rotate(0deg); }
+                    50% { transform: translateY(-25px) rotate(-5deg); }
                 }
 
                 @keyframes float-slow {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-15px); }
+                    0%, 100% { transform: translateY(0px) rotate(45deg); }
+                    50% { transform: translateY(-15px) rotate(50deg); }
                 }
 
-                @keyframes float-rotate {
-                    0%, 100% { transform: translateY(0px) rotate(0deg); }
-                    50% { transform: translateY(-15px) rotate(5deg); }
+                @keyframes float-particle {
+                    0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+                    50% { transform: translateY(-100px) translateX(50px); opacity: 0.8; }
                 }
 
-                @keyframes float-reverse {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(20px); }
+                @keyframes float-particle-delayed {
+                    0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+                    50% { transform: translateY(-80px) translateX(-40px); opacity: 0.7; }
                 }
 
-                @keyframes ping-slow {
-                    0% { transform: scale(1); opacity: 1; }
-                    75%, 100% { transform: scale(2); opacity: 0; }
+                @keyframes float-particle-slow {
+                    0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+                    50% { transform: translateY(-60px) translateX(30px); opacity: 0.6; }
                 }
 
-                @keyframes pulse-slow {
-                    0%, 100% { opacity: 1; transform: scale(1); }
-                    50% { opacity: 0.5; transform: scale(1.05); }
-                }
-
-                @keyframes bounce-slow {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(-10px); }
-                }
-
-                @keyframes shine {
-                    0% { background-position: -200% center; }
-                    100% { background-position: 200% center; }
-                }
-
-                @keyframes slide-up {
-                    from { transform: translateY(20px); opacity: 0; }
-                    to { transform: translateY(0); opacity: 1; }
-                }
-
-                @keyframes fade-in-up {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-
-                @keyframes count-up {
-                    from { opacity: 0; transform: scale(0.5); }
-                    to { opacity: 1; transform: scale(1); }
+                @keyframes gradient {
+                    0%, 100% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
                 }
 
                 .animate-float {
@@ -240,47 +330,28 @@ export default function MultiFellowshipHero() {
                 }
 
                 .animate-float-delayed {
-                    animation: float-delayed 8s ease-in-out infinite;
+                    animation: float-delayed 7s ease-in-out infinite;
                 }
 
                 .animate-float-slow {
-                    animation: float-slow 10s ease-in-out infinite;
+                    animation: float-slow 8s ease-in-out infinite;
                 }
 
-                .animate-float-rotate {
-                    animation: float-rotate 5s ease-in-out infinite;
+                .animate-float-particle {
+                    animation: float-particle 8s ease-in-out infinite;
                 }
 
-                .animate-float-reverse {
-                    animation: float-reverse 7s ease-in-out infinite;
+                .animate-float-particle-delayed {
+                    animation: float-particle-delayed 10s ease-in-out infinite;
                 }
 
-                .animate-ping-slow {
-                    animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+                .animate-float-particle-slow {
+                    animation: float-particle-slow 12s ease-in-out infinite;
                 }
 
-                .animate-pulse-slow {
-                    animation: pulse-slow 3s ease-in-out infinite;
-                }
-
-                .animate-bounce-slow {
-                    animation: bounce-slow 2s ease-in-out infinite;
-                }
-
-                .animate-shine {
-                    background-size: 200% auto;
-                }
-
-                .animate-slide-up {
-                    animation: slide-up 0.6s ease-out 0.8s both;
-                }
-
-                .animate-fade-in-up {
-                    animation: fade-in-up 0.8s ease-out both;
-                }
-
-                .animate-count-up {
-                    animation: count-up 0.6s ease-out 1s both;
+                .animate-gradient {
+                    background-size: 200% 200%;
+                    animation: gradient 5s ease infinite;
                 }
             `}</style>
         </div>
