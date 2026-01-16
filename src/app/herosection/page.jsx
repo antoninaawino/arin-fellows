@@ -203,16 +203,15 @@ export default function MultiFellowshipHero() {
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="relative w-full bg-black">
-                                        <video
-                                            className="w-full h-auto"
-                                            controls
-                                            autoPlay
-                                            playsInline
-                                        >
-                                            <source src="/img/video/video1.mp4" type="video/mp4" />
-                                            Your browser does not support the video tag.
-                                        </video>
+                                    <div className="relative w-full bg-black" style={{ paddingBottom: '56.25%' }}>
+                                        <iframe
+                                            className="absolute inset-0 w-full h-full"
+                                            src="https://www.youtube.com/embed/GYrEMHVHzyo?autoplay=1&rel=0"
+                                            title="ARIN Fellows Impact Story"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                        ></iframe>
                                     </div>
                                 )}
                             </div>
