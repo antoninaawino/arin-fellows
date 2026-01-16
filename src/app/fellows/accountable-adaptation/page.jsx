@@ -288,7 +288,7 @@ export default function AccountableAdaptationFellowsPage() {
                             </div>
                             <h3 className="text-3xl font-bold text-gray-800 mb-4">No Fellows Found</h3>
                             <p className="text-gray-600 mb-8 text-lg">
-                                Try adjusting your search to find what you're looking for
+                                Try adjusting your search to find what you&apos;re looking for
                             </p>
                             <button
                                 onClick={() => setSearchQuery("")}
