@@ -43,9 +43,7 @@ export default function MultiFellowshipHero() {
     return (
         <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 overflow-hidden">
 
-            {/* Dynamic Animated Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Gradient Orbs with Parallax */}
                 <div
                     className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-br from-[#14234d]/10 to-blue-400/10 rounded-full blur-3xl"
                     style={{
@@ -68,7 +66,6 @@ export default function MultiFellowshipHero() {
                     }}
                 ></div>
 
-                {/* Animated Grid Pattern */}
                 <div className="absolute inset-0 opacity-5">
                     <div className="absolute inset-0" style={{
                         backgroundImage: `
@@ -79,7 +76,6 @@ export default function MultiFellowshipHero() {
                     }}></div>
                 </div>
 
-                {/* Floating Particles */}
                 <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#14234d]/20 rounded-full animate-float-particle"></div>
                 <div className="absolute top-1/3 right-1/3 w-2 h-2 bg-blue-400/30 rounded-full animate-float-particle-delayed"></div>
                 <div className="absolute bottom-1/3 left-1/2 w-2 h-2 bg-purple-400/30 rounded-full animate-float-particle-slow"></div>
@@ -88,10 +84,8 @@ export default function MultiFellowshipHero() {
 
             <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
 
-                {/* Hero Header with Animation */}
                 <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
 
-                    {/* Animated Badge */}
                     <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#14234d]/10 via-blue-500/10 to-purple-500/10 backdrop-blur-sm rounded-full px-6 py-2.5 mb-8 border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                         <div className="relative">
                             <Sparkles className="w-4 h-4 text-[#14234d] animate-pulse" />
@@ -160,11 +154,10 @@ export default function MultiFellowshipHero() {
 
                             <div className="relative rounded-2xl overflow-hidden">
                                 {!showVideo ? (
-                                    // Enhanced Video Thumbnail
                                     <div className="relative cursor-pointer group" onClick={() => setShowVideo(true)}>
                                         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                                             <img
-                                                src="/img/fellowship-image.webp"
+                                                src="/img/thumbnail.png"
                                                 alt="Watch Our Impact Story"
                                                 className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                                             />

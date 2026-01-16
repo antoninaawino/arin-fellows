@@ -1,81 +1,118 @@
 "use client"
 
-import { useState, useMemo } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import Link from "next/link"
-import { Search, X } from "lucide-react"
+import { useState, useMemo, useEffect } from "react"
+import { Search, X, MapPin, BookOpen, Sparkles, Users, Globe } from "lucide-react"
 import { arinFellows } from "../../../../data/fellows/arin-fellows"
-import ARINNavbar from "@/components/navbar/navbar"
 import ArinFellowsFooter from "@/components/footer/footer"
+import ARINNavbar from "@/components/navbar/navbar"
 
-// Fellow Card Component with View Bio
-function FellowCard({ fellow, onClick }) {
+function FellowCard({ fellow, onClick, index }) {
+    const [isVisible, setIsVisible] = useState(false)
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsVisible(true), index * 50)
+        return () => clearTimeout(timer)
+    }, [index])
+
     return (
         <div
-            className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-visible cursor-pointer group"
+            className={`group relative cursor-pointer transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
             onClick={() => onClick(fellow)}
         >
-            <div className="relative h-40 bg-gradient-to-br from-[#030f41] to-[#48a4bb] rounded-t-xl">
-                <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-0 group-hover:opacity-20 blur transition-all duration-500"></div>
+
+            <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative h-80 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10"></div>
                     <img
                         src={fellow.image}
                         alt={fellow.name}
-                        className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
+
+                    {fellow.country && (
+                        <div className="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+                            <MapPin className="w-3.5 h-3.5 text-blue-600" />
+                            <span className="text-xs font-semibold text-gray-700">{fellow.country}</span>
+                        </div>
+                    )}
+
+                    <div className="absolute bottom-0 left-0 right-0 z-20 p-6">
+                        <h3 className="text-white text-2xl font-bold mb-1 drop-shadow-lg">
+                            {fellow.name}
+                        </h3>
+                        <p className="text-white/90 text-sm font-medium drop-shadow">
+                            {fellow.title}
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div className="pt-20 pb-6 px-6 text-center">
-                {/* FELLOW NAME */}
-                <h3 className="text-xl font-bold text-gray-800 mb-2 line-clamp-2">
-                    {fellow.name}
-                </h3>
-                <p className="text-[#48a4bb] font-semibold text-sm mb-2">{fellow.title}</p>
-                {/* FELLOW COUNTRY */}
-                <p className="text-gray-600 text-sm mb-4">{fellow.country}</p>
-                {/* VIEW BIO BUTTON */}
-                <Button className="w-full bg-[#48a4bb] hover:bg-[#9bc8ce] text-white py-2 px-4 rounded-lg transition-all duration-300">
-                    View Bio
-                </Button>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-95 transition-all duration-500 z-30 flex flex-col items-center justify-center p-6 text-center">
+                    <BookOpen className="w-12 h-12 text-white mb-4 animate-bounce" />
+                    <p className="text-white font-bold text-lg mb-2">View Full Biography</p>
+                    <p className="text-white/90 text-sm mb-4 line-clamp-3">{fellow.bio.substring(0, 120)}...</p>
+                    <div className="flex items-center gap-2 text-white font-semibold">
+                        <span>Read More</span>
+                        <div className="w-5 h-5 group-hover:translate-x-1 transition-transform">→</div>
+                    </div>
+                </div>
             </div>
         </div>
     )
 }
 
-// Fellow Detail Modal
 function FellowDetailModal({ fellow, isOpen, onClose }) {
     if (!isOpen || !fellow) return null
 
     return (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
+        <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={onClose}
+        >
             <div
-                className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+                className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="relative bg-gradient-to-br from-[#030f41] to-[#48a4bb] p-8 text-white">
+                <div className="relative h-80 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
+                    <img
+                        src={fellow.image}
+                        alt={fellow.name}
+                        className="w-full h-full object-cover"
+                    />
+
                     <button
                         onClick={onClose}
-                        className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
+                        className="absolute top-6 right-6 z-20 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white rounded-full p-2 transition-all duration-300"
                     >
                         <X className="w-6 h-6" />
                     </button>
-                    <div className="flex flex-col items-center">
-                        <img
-                            src={fellow.image}
-                            alt={fellow.name}
-                            className="w-32 h-32 rounded-full object-cover border-4 border-white mb-4"
-                        />
-                        {/* FELLOW NAME in Modal */}
-                        <h2 className="text-3xl font-bold mb-2">{fellow.name}</h2>
-                        <p className="text-[#9bc8ce] text-lg">{fellow.title}</p>
-                        {/* FELLOW COUNTRY in Modal */}
-                        <p className="text-white/90">{fellow.country}</p>
+
+                    <div className="absolute bottom-0 left-0 right-0 z-20 p-8">
+                        {fellow.country && (
+                            <div className="flex items-center gap-2 mb-3">
+                                <MapPin className="w-5 h-5 text-white" />
+                                <span className="text-white/90 font-medium">{fellow.country}</span>
+                            </div>
+                        )}
+                        <h2 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
+                            {fellow.name}
+                        </h2>
+                        <p className="text-xl text-white/95 drop-shadow">
+                            {fellow.title}
+                        </p>
                     </div>
                 </div>
-                <div className="p-8">
-                    <h3 className="text-xl font-bold text-gray-800 mb-4">Biography</h3>
-                    {/* FELLOW BIO - full biography text */}
-                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">{fellow.bio}</p>
+
+                <div className="p-8 overflow-y-auto max-h-96">
+                    <div className="flex items-center gap-2 mb-4">
+                        <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                        <h3 className="text-2xl font-bold text-gray-800">Biography</h3>
+                    </div>
+                    <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
+                        {fellow.bio}
+                    </p>
                 </div>
             </div>
         </div>
@@ -86,8 +123,22 @@ export default function ARINFellowsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedFellow, setSelectedFellow] = useState(null)
     const [searchQuery, setSearchQuery] = useState("")
-    const [currentPage, setCurrentPage] = useState(1)
-    const fellowsPerPage = 12
+    const [isVisible, setIsVisible] = useState(false)
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+    useEffect(() => {
+        setIsVisible(true)
+
+        const handleMouseMove = (e) => {
+            setMousePosition({
+                x: (e.clientX - window.innerWidth / 2) / 50,
+                y: (e.clientY - window.innerHeight / 2) / 50
+            })
+        }
+
+        window.addEventListener('mousemove', handleMouseMove)
+        return () => window.removeEventListener('mousemove', handleMouseMove)
+    }, [])
 
     const handleCardClick = (fellow) => {
         setSelectedFellow(fellow)
@@ -100,191 +151,137 @@ export default function ARINFellowsPage() {
     }
 
     const filteredFellows = useMemo(() => {
-        if (!searchQuery) {
-            return arinFellows
-        }
-        const lowerCaseQuery = searchQuery.toLowerCase()
+        if (!searchQuery) return arinFellows
+        const query = searchQuery.toLowerCase()
         return arinFellows.filter(
             (fellow) =>
-                fellow.name.toLowerCase().includes(lowerCaseQuery) ||
-                fellow.bio.toLowerCase().includes(lowerCaseQuery) ||
-                (fellow.country && fellow.country.toLowerCase().includes(lowerCaseQuery)),
+                fellow.name.toLowerCase().includes(query) ||
+                (fellow.country && fellow.country.toLowerCase().includes(query)) ||
+                (fellow.title && fellow.title.toLowerCase().includes(query)) ||
+                fellow.bio.toLowerCase().includes(query)
         )
     }, [searchQuery])
-
-    const indexOfLastFellow = currentPage * fellowsPerPage
-    const indexOfFirstFellow = indexOfLastFellow - fellowsPerPage
-    const currentFellows = filteredFellows.slice(indexOfFirstFellow, indexOfLastFellow)
-    const totalPages = Math.ceil(filteredFellows.length / fellowsPerPage)
-
-    const paginate = (pageNumber) => setCurrentPage(pageNumber)
-
-    const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value)
-        setCurrentPage(1)
-    }
 
     return (
         <>
             <ARINNavbar />
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-                {/* Reduced Hero Section */}
-                <div className="bg-gradient-to-r from-[#030f41] via-[#2c5aa0] to-[#48a4bb] text-white relative overflow-hidden">
-                    <div className="absolute inset-0 bg-black/10">
-                        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-white/10"></div>
-                    </div>
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+                <div className="fixed inset-0 overflow-hidden pointer-events-none">
+                    <div
+                        className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl"
+                        style={{
+                            transform: `translate(${mousePosition.x * 2}px, ${mousePosition.y * 2}px)`,
+                            transition: 'transform 0.3s ease-out'
+                        }}
+                    ></div>
+                    <div
+                        className="absolute bottom-0 -right-20 w-96 h-96 bg-gradient-to-tl from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"
+                        style={{
+                            transform: `translate(${mousePosition.x * -2}px, ${mousePosition.y * -2}px)`,
+                            transition: 'transform 0.3s ease-out'
+                        }}
+                    ></div>
+                </div>
 
-                    <div className="relative max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-                        <div className="text-center">
-                            <Link href="/" passHref>
-                                <Button
-                                    variant="ghost"
-                                    className="mb-4 text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 rounded-full px-6"
-                                >
-                                    ← Back to Fellows
-                                </Button>
-                            </Link>
-                            <h1 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                                ARIN
-                                <span className="block text-[#9bc8ce]">Fellows</span>
+                <div className="relative z-10">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
+                        <div className={`text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-6 py-2.5 mb-6 border border-gray-200 shadow-lg">
+                                <Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
+                                <span className="text-gray-700 text-sm font-semibold tracking-wide">
+                                    ARIN Fellows Network
+                                </span>
+                                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            </div>
+
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+                                <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                                    ARIN Fellows
+                                </span>
                             </h1>
-                            <p className="text-lg text-white/90 max-w-4xl mx-auto leading-relaxed mb-6">
-                                Discover our ARIN Fellows, a network of talented researchers and technocrats dedicated to promoting
-                                research excellence and impact pathways across Africa.
+
+                            <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-6 font-light">
+                                A network of <span className="font-bold text-blue-600">talented researchers and technocrats</span> promoting research excellence across Africa
                             </p>
-                            <div className="flex justify-center items-center space-x-8 text-white/80">
-                                <div className="text-center">
-                                    <div className="text-2xl font-bold text-white">{arinFellows.length}</div>
-                                    <div className="text-sm">Total Fellows</div>
+
+                            <div className="flex flex-wrap justify-center gap-6 mb-8">
+                                <div className="flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-2xl px-5 py-3 shadow-lg border border-gray-200">
+                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-md">
+                                        <Users className="w-6 h-6 text-white" />
+                                    </div>
+                                    <div className="text-left">
+                                        <div className="text-2xl font-bold text-gray-800">{arinFellows.length}</div>
+                                        <div className="text-xs text-gray-500">Active Fellows</div>
+                                    </div>
                                 </div>
+
+                                <div className="flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-2xl px-5 py-3 shadow-lg border border-gray-200">
+                                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-md">
+                                        <Globe className="w-6 h-6 text-white" />
+                                    </div>
+                                    <div className="text-left">
+                                        <div className="text-2xl font-bold text-gray-800">{new Set(arinFellows.filter(f => f.country).map(f => f.country)).size}</div>
+                                        <div className="text-xs text-gray-500">Countries</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="max-w-2xl mx-auto">
+                                <div className="relative">
+                                    <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+                                    <input
+                                        type="text"
+                                        placeholder="Search by name, country, or expertise..."
+                                        value={searchQuery}
+                                        onChange={(e) => setSearchQuery(e.target.value)}
+                                        className="w-full pl-14 pr-14 py-4 bg-white/80 backdrop-blur-xl border-2 border-gray-200 rounded-2xl shadow-lg focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 text-base"
+                                    />
+                                    {searchQuery && (
+                                        <button
+                                            onClick={() => setSearchQuery("")}
+                                            className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                        >
+                                            <X className="w-5 h-5" />
+                                        </button>
+                                    )}
+                                </div>
+                                {searchQuery && (
+                                    <p className="mt-3 text-gray-600 text-sm">
+                                        Found <span className="font-bold text-blue-600">{filteredFellows.length}</span> {filteredFellows.length === 1 ? 'fellow' : 'fellows'}
+                                    </p>
+                                )}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Search Bar */}
-                    <div className="relative -mt-8 mb-12">
-                        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6">
-                            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                                <div className="flex-1 max-w-md">
-                                    <div className="relative">
-                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                        <Input
-                                            type="text"
-                                            placeholder="Search by name, expertise, or location..."
-                                            value={searchQuery}
-                                            onChange={handleSearchChange}
-                                            className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl shadow-sm focus:ring-2 focus:ring-[#48a4bb]/20 focus:border-[#48a4bb] transition-all duration-300"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex items-center space-x-4 text-sm text-gray-600">
-                                    <span className="hidden md:block">
-                                        Showing {currentFellows.length} of {filteredFellows.length} fellows
-                                    </span>
-                                    {searchQuery && (
-                                        <Button
-                                            variant="ghost"
-                                            onClick={() => setSearchQuery("")}
-                                            className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded-lg"
-                                        >
-                                            Clear search ×
-                                        </Button>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Fellows Grid */}
+                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
                     {filteredFellows.length > 0 ? (
-                        <div className="pb-20">
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                                {currentFellows.map((fellow, index) => (
-                                    <div
-                                        key={fellow.id}
-                                        className="transform hover:scale-105 transition-all duration-300"
-                                        style={{ animationDelay: `${index * 100}ms` }}
-                                    >
-                                        <FellowCard fellow={fellow} onClick={handleCardClick} />
-                                    </div>
-                                ))}
-                            </div>
-
-                            {totalPages > 1 && (
-                                <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
-                                    <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-                                        <div className="text-sm text-gray-600">
-                                            Page {currentPage} of {totalPages}
-                                        </div>
-                                        <div className="flex justify-center items-center space-x-2">
-                                            <Button
-                                                variant="outline"
-                                                onClick={() => paginate(currentPage - 1)}
-                                                disabled={currentPage === 1}
-                                                className="border-[#48a4bb] text-[#48a4bb] hover:bg-[#48a4bb] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-                                            >
-                                                Previous
-                                            </Button>
-
-                                            <div className="flex space-x-1 max-w-xs overflow-hidden">
-                                                {[...Array(Math.min(totalPages, 5))].map((_, index) => {
-                                                    let pageNum
-                                                    if (totalPages <= 5) {
-                                                        pageNum = index + 1
-                                                    } else if (currentPage <= 3) {
-                                                        pageNum = index + 1
-                                                    } else if (currentPage >= totalPages - 2) {
-                                                        pageNum = totalPages - 4 + index
-                                                    } else {
-                                                        pageNum = currentPage - 2 + index
-                                                    }
-
-                                                    return (
-                                                        <Button
-                                                            key={pageNum}
-                                                            variant={currentPage === pageNum ? "default" : "outline"}
-                                                            onClick={() => paginate(pageNum)}
-                                                            className={`w-10 h-10 ${currentPage === pageNum
-                                                                ? "bg-[#48a4bb] hover:bg-[#9bc8ce] text-white shadow-lg"
-                                                                : "border-[#48a4bb] text-[#48a4bb] hover:bg-[#48a4bb] hover:text-white"
-                                                                } transition-all duration-300`}
-                                                        >
-                                                            {pageNum}
-                                                        </Button>
-                                                    )
-                                                })}
-                                            </div>
-
-                                            <Button
-                                                variant="outline"
-                                                onClick={() => paginate(currentPage + 1)}
-                                                disabled={currentPage === totalPages}
-                                                className="border-[#48a4bb] text-[#48a4bb] hover:bg-[#48a4bb] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-                                            >
-                                                Next
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {filteredFellows.map((fellow, index) => (
+                                <FellowCard
+                                    key={fellow.id}
+                                    fellow={fellow}
+                                    onClick={handleCardClick}
+                                    index={index}
+                                />
+                            ))}
                         </div>
                     ) : (
                         <div className="text-center py-20">
-                            <div className="max-w-md mx-auto">
-                                <div className="text-6xl mb-6">🔍</div>
-                                <h3 className="text-2xl font-bold text-gray-800 mb-4">No Fellows Found</h3>
-                                <p className="text-gray-600 mb-6">
-                                    We couldn&apos;t find any ARIN Fellows matching your search criteria.
-                                </p>
-                                <Button
-                                    onClick={() => setSearchQuery("")}
-                                    className="bg-[#48a4bb] hover:bg-[#9bc8ce] text-white px-6 py-3 rounded-full font-semibold transition-all duration-300"
-                                >
-                                    Clear Search
-                                </Button>
+                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 mb-6 shadow-xl">
+                                <Search className="w-10 h-10 text-white" />
                             </div>
+                            <h3 className="text-3xl font-bold text-gray-800 mb-4">No Fellows Found</h3>
+                            <p className="text-gray-600 mb-8 text-lg">
+                                Try adjusting your search to find what you're looking for
+                            </p>
+                            <button
+                                onClick={() => setSearchQuery("")}
+                                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold px-8 py-4 rounded-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                            >
+                                Clear Search
+                            </button>
                         </div>
                     )}
                 </div>
@@ -292,6 +289,7 @@ export default function ARINFellowsPage() {
                 <FellowDetailModal fellow={selectedFellow} isOpen={isModalOpen} onClose={handleCloseModal} />
             </div>
             <ArinFellowsFooter />
+
         </>
     )
 }
