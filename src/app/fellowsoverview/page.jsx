@@ -34,6 +34,7 @@ export default function FellowsOverview() {
     }
 
     const sections = [
+
         {
             title: "ARIN Fellows",
             description:
@@ -42,6 +43,16 @@ export default function FellowsOverview() {
             icon: Users,
             color: "from-blue-500 to-blue-600",
             bgColor: "from-[#48a4bb] to-[#9bc8ce]",
+            featured: true,
+
+        },
+        {
+            title: "Leeps Fellows ",
+            description: "Meet our Africa LEEPS fellows contributing to evidence-informed policymaking and sustainable development across Africa"
+            , link: "/fellows/leeps",
+            icon: Globe,
+            color: "from-green-500 to-green-600",
+            bgColor: "from-emerald-500 to-emerald-600",
         },
         {
             title: "Accountable Fellows",
@@ -51,7 +62,6 @@ export default function FellowsOverview() {
             icon: Building2,
             color: "from-purple-500 to-purple-600",
             bgColor: "from-[#030f41] to-[#1a2951]",
-            featured: true,
         },
         {
             title: "SDG Fellows",
@@ -61,6 +71,7 @@ export default function FellowsOverview() {
             color: "from-green-500 to-green-600",
             bgColor: "from-emerald-500 to-emerald-600",
         },
+
     ]
 
     return (
@@ -79,7 +90,7 @@ export default function FellowsOverview() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {sections.map((section, index) => {
                             const IconComponent = section.icon
                             return (

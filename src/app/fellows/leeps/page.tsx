@@ -2,9 +2,9 @@
 
 import { useState, useMemo, useEffect } from "react"
 import { Search, X, MapPin, BookOpen, Sparkles, Users, Globe } from "lucide-react"
-import { accountableFellows } from "../../../../data/fellows/accountable-adaptation-fellows"
-import ARINNavbar from "@/components/navbar/navbar"
+import { leepsFellows } from "../../../../data/fellows/leeps-fellows"
 import ArinFellowsFooter from "@/components/footer/footer"
+import ARINNavbar from "@/components/navbar/navbar"
 
 function FellowCard({ fellow, onClick, index }) {
     const [isVisible, setIsVisible] = useState(false)
@@ -16,46 +16,45 @@ function FellowCard({ fellow, onClick, index }) {
 
     return (
         <div
-            className={`group relative cursor-pointer transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
+            className={`group relative cursor-pointer transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             onClick={() => onClick(fellow)}
         >
-            {/* Card */}
-            <div className="relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                {/* Image Section */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-0 group-hover:opacity-20 blur transition-all duration-500"></div>
+
+            <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative h-80 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10"></div>
                     <img
                         src={fellow.image}
                         alt={fellow.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
 
-                    {/* Country Badge - Top Right */}
-                    <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md border border-gray-200">
-                        <MapPin className="w-3.5 h-3.5 text-blue-600" />
-                        <span className="text-xs font-semibold text-gray-700">{fellow.country}</span>
+                    {fellow.country && (
+                        <div className="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+                            <MapPin className="w-3.5 h-3.5 text-blue-600" />
+                            <span className="text-xs font-semibold text-gray-700">{fellow.country}</span>
+                        </div>
+                    )}
+
+                    <div className="absolute bottom-0 left-0 right-0 z-20 p-6">
+                        <h3 className="text-white text-2xl font-bold mb-1 drop-shadow-lg">
+                            {fellow.name}
+                        </h3>
+                        <p className="text-white/90 text-sm font-medium drop-shadow">
+                            {fellow.title}
+                        </p>
                     </div>
                 </div>
 
-                {/* Content Section */}
-                <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                        {fellow.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 font-medium mb-4">
-                        {fellow.title}
-                    </p>
-
-                    {/* Bio Preview */}
-                    <p className="text-sm text-gray-500 line-clamp-3 mb-4 leading-relaxed">
-                        {fellow.bio}
-                    </p>
-
-                    {/* View Bio Button */}
-                    <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-4 rounded-xl hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2">
-                        <BookOpen className="w-4 h-4" />
-                        <span>View Full Biography</span>
-                    </button>
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-95 transition-all duration-500 z-30 flex flex-col items-center justify-center p-6 text-center">
+                    <BookOpen className="w-12 h-12 text-white mb-4 animate-bounce" />
+                    <p className="text-white font-bold text-lg mb-2">View Full Biography</p>
+                    <p className="text-white/90 text-sm mb-4 line-clamp-3">{fellow.bio.substring(0, 120)}...</p>
+                    <div className="flex items-center gap-2 text-white font-semibold">
+                        <span>Read More</span>
+                        <div className="w-5 h-5 group-hover:translate-x-1 transition-transform">→</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,7 +124,8 @@ function FellowDetailModal({ fellow, isOpen, onClose }) {
         </div>
     )
 }
-export default function AccountableAdaptationFellowsPage() {
+
+export default function LEEPSFellowsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedFellow, setSelectedFellow] = useState(null)
     const [searchQuery, setSearchQuery] = useState("")
@@ -157,13 +157,13 @@ export default function AccountableAdaptationFellowsPage() {
     }
 
     const filteredFellows = useMemo(() => {
-        if (!searchQuery) return accountableFellows
+        if (!searchQuery) return leepsFellows
         const query = searchQuery.toLowerCase()
-        return accountableFellows.filter(
+        return leepsFellows.filter(
             (fellow) =>
                 fellow.name.toLowerCase().includes(query) ||
-                fellow.country.toLowerCase().includes(query) ||
-                fellow.title.toLowerCase().includes(query) ||
+                (fellow.country && fellow.country.toLowerCase().includes(query)) ||
+                (fellow.title && fellow.title.toLowerCase().includes(query)) ||
                 fellow.bio.toLowerCase().includes(query)
         )
     }, [searchQuery])
@@ -189,38 +189,34 @@ export default function AccountableAdaptationFellowsPage() {
                     ></div>
                 </div>
 
-                {/* Header Section */}
                 <div className="relative z-10">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
                         <div className={`text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                            {/* Badge */}
                             <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-6 py-2.5 mb-6 border border-gray-200 shadow-lg">
                                 <Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
                                 <span className="text-gray-700 text-sm font-semibold tracking-wide">
-                                    Accountable Adaptation Fellowship
+                                    LEEPS Fellows Network
                                 </span>
                                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             </div>
 
-                            {/* Title */}
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
                                 <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
-                                    Meet Our Fellows
+                                    LEEPS Fellows
                                 </span>
                             </h1>
 
                             <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto mb-6 font-light">
-                                Dedicated researchers driving <span className="font-bold text-blue-600">innovative solutions</span> for climate resilience across Africa
+                                A network of <span className="font-bold text-blue-600">talented researchers and technocrats</span> promoting research excellence across Africa
                             </p>
 
-                            {/* Stats */}
                             <div className="flex flex-wrap justify-center gap-6 mb-8">
                                 <div className="flex items-center gap-3 bg-white/80 backdrop-blur-sm rounded-2xl px-5 py-3 shadow-lg border border-gray-200">
                                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-md">
                                         <Users className="w-6 h-6 text-white" />
                                     </div>
                                     <div className="text-left">
-                                        <div className="text-2xl font-bold text-gray-800">{accountableFellows.length}</div>
+                                        <div className="text-2xl font-bold text-gray-800">{leepsFellows.length}</div>
                                         <div className="text-xs text-gray-500">Active Fellows</div>
                                     </div>
                                 </div>
@@ -230,13 +226,12 @@ export default function AccountableAdaptationFellowsPage() {
                                         <Globe className="w-6 h-6 text-white" />
                                     </div>
                                     <div className="text-left">
-                                        <div className="text-2xl font-bold text-gray-800">{new Set(accountableFellows.map(f => f.country)).size}</div>
+                                        <div className="text-2xl font-bold text-gray-800">{new Set(leepsFellows.filter(f => f.country).map(f => f.country)).size}</div>
                                         <div className="text-xs text-gray-500">Countries</div>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Search */}
                             <div className="max-w-2xl mx-auto">
                                 <div className="relative">
                                     <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
@@ -266,7 +261,6 @@ export default function AccountableAdaptationFellowsPage() {
                     </div>
                 </div>
 
-                {/* Fellows Grid */}
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
                     {filteredFellows.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

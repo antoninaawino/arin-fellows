@@ -21,7 +21,7 @@ function FellowCard({ fellow, onClick, index }) {
             onClick={() => onClick(fellow)}
         >
             <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-0 group-hover:opacity-20 blur transition-all duration-500"></div>
-
+            j
             <div className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="relative h-80 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10"></div>
@@ -71,54 +71,60 @@ function FellowDetailModal({ fellow, isOpen, onClose }) {
             onClick={onClose}
         >
             <div
-                className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
+                className="bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="relative h-80 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
-                    <img
-                        src={fellow.image}
-                        alt={fellow.name}
-                        className="w-full h-full object-cover"
-                    />
+                <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
+                    {/* Left Side - Image */}
+                    <div className="relative w-full md:w-2/5 h-64 md:h-auto overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20 z-10"></div>
+                        <img
+                            src={fellow.image}
+                            alt={fellow.name}
+                            className="w-full h-full object-cover"
+                        />
 
-                    <button
-                        onClick={onClose}
-                        className="absolute top-6 right-6 z-20 bg-white/20 backdrop-blur-md hover:bg-white/30 text-white rounded-full p-2 transition-all duration-300"
-                    >
-                        <X className="w-6 h-6" />
-                    </button>
-
-                    <div className="absolute bottom-0 left-0 right-0 z-20 p-8">
                         {fellow.country && (
-                            <div className="flex items-center gap-2 mb-3">
-                                <MapPin className="w-5 h-5 text-white" />
-                                <span className="text-white/90 font-medium">{fellow.country}</span>
+                            <div className="absolute top-6 left-6 z-20 flex items-center gap-2 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                                <MapPin className="w-4 h-4 text-blue-600" />
+                                <span className="text-sm font-semibold text-gray-700">{fellow.country}</span>
                             </div>
                         )}
-                        <h2 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
-                            {fellow.name}
-                        </h2>
-                        <p className="text-xl text-white/95 drop-shadow">
-                            {fellow.title}
-                        </p>
                     </div>
-                </div>
 
-                <div className="p-8 overflow-y-auto max-h-96">
-                    <div className="flex items-center gap-2 mb-4">
-                        <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
-                        <h3 className="text-2xl font-bold text-gray-800">Biography</h3>
+                    {/* Right Side - Content */}
+                    <div className="flex-1 flex flex-col overflow-hidden">
+                        <div className="relative p-8 pb-6 border-b border-gray-100">
+                            <button
+                                onClick={onClose}
+                                className="absolute top-6 right-6 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full p-2 transition-all duration-300"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
+                            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2 pr-12">
+                                {fellow.name}
+                            </h2>
+                            <p className="text-lg text-gray-600 font-medium">
+                                {fellow.title}
+                            </p>
+                        </div>
+
+                        <div className="flex-1 overflow-y-auto p-8">
+                            <div className="flex items-center gap-2 mb-4">
+                                <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                                <h3 className="text-xl font-bold text-gray-800">Biography</h3>
+                            </div>
+                            <p className="text-gray-700 text-base leading-relaxed whitespace-pre-line">
+                                {fellow.bio}
+                            </p>
+                        </div>
                     </div>
-                    <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
-                        {fellow.bio}
-                    </p>
                 </div>
             </div>
         </div>
     )
 }
-
 export default function ARINFellowsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedFellow, setSelectedFellow] = useState(null)
