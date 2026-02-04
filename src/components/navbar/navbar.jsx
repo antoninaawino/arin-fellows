@@ -41,7 +41,7 @@ const ARINNavbar = () => {
                 { name: 'ARIN Fellows', href: '/fellows/arin' },
                 { name: 'Accountable Adaptation Fellows', href: '/fellows/accountable-adaptation' },
                 { name: 'SDG Fellows', href: '/fellows/sdg' },
-                { name: 'Leeps Fellows', href: '/fellows/Leeps' },
+                { name: 'Leeps Fellows', href: '/fellows/leeps' },
 
             ]
         },

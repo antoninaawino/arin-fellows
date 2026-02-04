@@ -21,7 +21,8 @@ export const leepsFellows = [
     id: "leeps3",
     name: "Jim Oduor",
     image: "/img/leeps/jim.jpg",
-    title: "Leeps Fellow",
+    title:
+      "Social research professional with experience in international development, climate change and adaptation",
     bio: "Jim Oduor is a skilled social research professional with experience in international development, climate change and adaptation as well as M&E having worked in various capacities in research design and implementation, training and capacity building as well as program evaluation.  Jim has experience in implementing projects, research activities in the areas of Climate Change and Adaptation, Agriculture and Food Security, Access to Environmental Justice, Disaster and Emergency Preparedness, Social Protection, Sexual and Gender Based Violence (SGBV), Gender Equality and Women Empowerment, WASH, and developing Environmental, Gender, and Social Impact Assessments (GESIA). Jim has hands-on expertise implementing projects and programs funded by various donors including UN partner Agencies (UN Women, UN Habitat, and UNDP), Mastercard Foundation, Bread for the World, and African Women’s Development Fund. Jim also has expertise in collaborative stakeholder liaison, managing relations with National and County Governments, NGOs, INGOs, CBOs, academia, local authorities, Faith-Based Organizations (FBOs), and donors to ensure project delivery. Jims research expertise includes designing research methods and data collection tools, conducting pilots, selecting and training teams of field researchers/enumerators, overseeing teams as they administer surveys and conduct focus group discussions, training data entry staff, conducting quality control checks on data entry, cleaning datasets, and analyzing and interpreting quantitative and qualitative data. Jim has worked in Kenya, Somalia and Somaliland on projects related to climate change and adaptation, gender mainstreaming, Social Protection, city resilience and poverty reduction. Jim is a PhD Student of Climate Change and Adaptation at the University of Nairobi’s Institute of Climate Change and Adaptation (ICCA). Jim also holds a Master’s Degree in International Studies, a Bachelor’s Degree in Education - (Linguistics and Literature) as well as a postgraduate diploma in Project Management and is a Certified Monitoring and Evaluation Practitioner. ",
     category: "leeps",
   },
@@ -40,16 +41,15 @@ export const leepsFellows = [
     name: "Amose Obonyo",
     image: "/img/leeps/amos.png",
     title:
-      "environmental scientist with multidisciplinary training in limnology, wetlands management, and environmental management",
+      "Environmental scientist with multidisciplinary training in limnology, wetlands management, and environmental management",
     bio: "Amose Obonyo is an environmental scientist with multidisciplinary training in limnology, wetlands management, and environmental management. He holds an International Joint MSc in Limnology and Wetlands Management, an MSc in Environmental Science, and a BSc in Environmental Management and Conservation. His professional experience spans University teaching, agroforestry operations, forest management, field research, and graduate-level environmental projects. Amose’s interests focus on land and ecosystem restoration, soil and biodiversity conservation, climate change mitigation, and evidence-informed policymaking, particularly within the African context. He has worked extensively in field coordination and stakeholder engagement, data collection, and applied research, contributing to sustainable natural resource management and climate-resilient land-use practices. His long-term goal is to advance science-policy linkages that support effective environmental decision-making and sustainable development.",
     category: "leeps",
   },
   {
     id: "leeps6",
-    name: "Amose Obonyo",
+    name: "Ismaila Salawu",
     image: "/img/leeps/ismaila.jpg",
-    title:
-      "environmental scientist with multidisciplinary training in limnology, wetlands management, and environmental management",
+    title: "PhD candidate in Public Policy at the University of Ibadan",
     bio: "Ismaila Salawu is a PhD candidate in Public Policy at the University of Ibadan. He is currently a fellow at Cheetahs Policy Institute and the Africa Research and Impact Network (ARIN). He has previously worked as a Research and Policy Associate at Paradigm Leadership Support Initiative (PLSI) and held research roles at the Centre for Democracy and Development (CDD) and the Nigerian Institute of Social and Economic Research (NISER). Ismaila is an alumnus of YALI RLC Accra and a member of the Africa Evidence Network, and Society for Decision-making Under Deep Uncertainty. He holds a B.Tech in Operations Research, an MSc in Research and Public Policy and a certificate in public policy analysis.",
     category: "leeps",
   },
