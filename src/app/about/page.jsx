@@ -224,7 +224,7 @@ export default function ARINFellowshipAbout() {
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {[
-                                { icon: Phone, label: "Call Us", value: "(+254) 20 2271000" },
+                                { icon: Phone, label: "Call Us", value: "+254 746 130873" },
                                 { icon: Mail, label: "Email Us", value: "info@arin-africa.org" },
                                 { icon: MapPin, label: "Visit Us", value: "Nairobi, Kenya" }
                             ].map((contact, index) => (

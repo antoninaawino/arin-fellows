@@ -51,7 +51,7 @@ const ARINFellowshipAbout = () => {
                                 <Phone className="h-5 w-5 text-[#48a4bb]" />
                                 <div>
                                     <p className="text-sm text-gray-600 font-medium">Need help?</p>
-                                    <p className="text-[#030f41] font-semibold">(+254) 20 2271000</p>
+                                    <p className="text-[#030f41] font-semibold">+254 746 130873</p>
                                 </div>
                             </div>
                             <Link href="/about">
@@ -129,7 +129,7 @@ const ARINFellowshipAbout = () => {
                 <div className="bg-white rounded-2xl shadow-lg p-12">
                     <div className="text-center mb-12">
                         <div className="inline-block px-4 py-2 bg-[#48a4bb]/10 text-[#48a4bb] rounded-lg text-sm font-semibold mb-4">
-                            LEADERSHIP TEAM
+                            TEAM
                         </div>
                         <h2 className="text-3xl lg:text-4xl font-bold text-[#030f41]">Fellowship Leadership</h2>
                     </div>

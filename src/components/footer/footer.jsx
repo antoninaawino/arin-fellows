@@ -144,8 +144,10 @@ const ArinFellowsFooter = () => {
                         <div className="space-y-3">
                             {[
                                 { Icon: Mail, text: "info@arinfellows.org" },
-                                { Icon: Phone, text: "+254 700 123 456" },
-                                { Icon: MapPin, text: "Nairobi, Kenya" }
+                                { Icon: Phone, text: "+254 746 130873" },
+                                {
+                                    Icon: MapPin, text: "ACK Gardens House, 1st Floor,Bishop Road, 1St Ngong Avenue, Upperhill, Nairobi"
+                                }
                             ].map(({ Icon, text }, index) => (
                                 <div key={text}
                                     className="flex items-center space-x-3 group"

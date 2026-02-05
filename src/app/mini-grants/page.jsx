@@ -12,12 +12,18 @@ import {
     Target,
     Lightbulb,
     ExternalLink,
+    CheckCircle,
+    Clock,
+    Zap,
+    ChevronRight,
+    Sparkles,
 } from "lucide-react"
 import ARINNavbar from "@/components/navbar/navbar"
 import ArinFellowsFooter from "@/components/footer/footer"
 
 export default function MiniGrantsPage() {
     const [activeGrant, setActiveGrant] = useState(null)
+    const [selectedCategory, setSelectedCategory] = useState("all")
 
     const grantExamples = [
         {
@@ -26,13 +32,7 @@ export default function MiniGrantsPage() {
             description:
                 "Background The Accountable Adaptation Initiative is launching a mini-grants programme. The programme is open to early to mid-career researchers from…",
             id: "accountable-adaptation",
-        },
-        {
-            title: "ARIN Governing SDGs Interactions Mini grants – Call for Applications- Readvertisement",
-            date: "September 30, 2024",
-            description:
-                "A. About the Project Numerous governments, businesses, and civil society organisations aim to contribute to achieving the 17 Sustainable Development…",
-            id: "sdgs-interactions",
+            status: "completed",
         },
         {
             title: "Learning Together to Advance Evidence and Equity in Policymaking for achieving the SDGs (LEEPS)",
@@ -40,6 +40,15 @@ export default function MiniGrantsPage() {
             description:
                 "The Alliance for Evidence and Equity in Policy-making in Africa (AEEPA) is part of the Learning Together to Advance Evidence…",
             id: "leeps",
+            status: "completed",
+        },
+        {
+            title: "ARIN Governing SDGs Interactions Mini grants – Call for Applications- Readvertisement",
+            date: "September 30, 2024",
+            description:
+                "A. About the Project Numerous governments, businesses, and civil society organisations aim to contribute to achieving the 17 Sustainable Development…",
+            id: "sdgs-interactions",
+            status: "active",
         },
         {
             title: "Leveraging Mathematical Sciences for Climate Resilience Solutions (Math4CCR): Mini-grant",
@@ -47,6 +56,7 @@ export default function MiniGrantsPage() {
             description:
                 "The role of mathematical modelling and Artificial Intelligence (AI) is becoming increasingly crucial in strengthening climate information systems and predictions…",
             id: "math4ccr",
+            status: "upcoming",
         },
         {
             title: "BioCAM Mini-grants",
@@ -54,8 +64,58 @@ export default function MiniGrantsPage() {
             description:
                 "The relationship between climate change and biodiversity loss is profound. Climate change accelerates biodiversity decline: Rapid climate shifts challenge species...",
             id: "biocam",
+            status: "upcoming",
+        },
+        {
+            title: "Climate Finance Fellowship",
+            date: "Coming Soon",
+            description:
+                "This fellowship aims to build capacity in climate finance mechanisms and support researchers in developing innovative financing solutions for climate adaptation and mitigation across Africa.",
+            id: "climate-finance",
+            status: "upcoming",
+        },
+        {
+            title: "AI Fellowship",
+            date: "Coming Soon",
+            description:
+                "The AI Fellowship program focuses on leveraging artificial intelligence and machine learning technologies to address critical development challenges across the African continent.",
+            id: "ai-fellowship",
+            status: "upcoming",
         },
     ]
+
+    const getStatusConfig = (status) => {
+        switch (status) {
+            case "completed":
+                return {
+                    label: "Completed",
+                    icon: CheckCircle,
+                    color: "slate",
+                    dotColor: "bg-slate-400",
+                }
+            case "active":
+                return {
+                    label: "Active",
+                    icon: Zap,
+                    color: "blue",
+                    dotColor: "bg-blue-400",
+                }
+            case "upcoming":
+                return {
+                    label: "Upcoming",
+                    icon: Clock,
+                    color: "blue",
+                    dotColor: "bg-blue-400",
+                }
+            default:
+                return {
+                    label: "Unknown",
+                    icon: Calendar,
+                    color: "gray",
+                    dotColor: "bg-gray-400",
+                }
+        }
+    }
 
     const handleGrantClick = (grantId) => {
         window.location.href = `/mini-grants/${grantId}`
@@ -68,131 +128,210 @@ export default function MiniGrantsPage() {
         )
     }
 
+    const categorizedGrants = {
+        completed: grantExamples.filter((g) => g.status === "completed"),
+        active: grantExamples.filter((g) => g.status === "active"),
+        upcoming: grantExamples.filter((g) => g.status === "upcoming"),
+    }
+
+    const filteredGrants =
+        selectedCategory === "all" ? grantExamples : grantExamples.filter((g) => g.status === selectedCategory)
+
     return (
         <>
             <ARINNavbar />
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
-                <div className="relative bg-gradient-to-r from-slate-900 via-blue-900 to-cyan-900 text-white overflow-hidden">
-                    <div className="absolute inset-0">
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-cyan-500/10 to-teal-400/20"></div>
-                        <div className="absolute top-0 left-0 w-full h-full">
-                            <div className="absolute top-20 left-20 w-32 h-32 bg-cyan-400/10 rounded-full blur-xl animate-pulse"></div>
-                            <div className="absolute bottom-20 right-20 w-40 h-40 bg-blue-400/10 rounded-full blur-xl animate-pulse delay-1000"></div>
-                            <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-teal-400/10 rounded-full blur-xl animate-pulse delay-500"></div>
-                        </div>
-                    </div>
+            <div className="min-h-screen bg-white">
+                {/* Hero Section - Clean Minimalist */}
+                <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+                    <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:60px_60px]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
 
-                    <div className="relative max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
-                        <div className="text-center">
-                            <Button
-                                variant="ghost"
-                                className="mb-8 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300 rounded-full px-8 py-2"
-                            >
-                                ← Back to Home
-                            </Button>
+                    <div className="relative max-w-6xl mx-auto px-6 py-20">
+                        <Button
+                            variant="ghost"
+                            className="mb-8 text-white/60 hover:text-white hover:bg-white/5 border border-white/10"
+                        >
+                            ← Back to Home
+                        </Button>
 
-                            <div className="mb-8">
-                                <h1 className="text-5xl lg:text-7xl font-extrabold mb-6 leading-tight tracking-tight">
-                                    <span className="bg-gradient-to-r from-white via-cyan-100 to-blue-100 bg-clip-text text-transparent">
-                                        ARIN Africa
-                                    </span>
-                                    <span className="block text-4xl lg:text-5xl text-cyan-300 mt-2">Science-Policy Mini-grants</span>
-                                </h1>
+                        <div className="max-w-3xl">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-6">
+                                <Sparkles className="w-4 h-4 text-blue-400" />
+                                <span className="text-sm font-medium text-blue-400">Science-Policy Mini-grants</span>
                             </div>
 
-                            <div className="max-w-4xl mx-auto mb-12">
-                                <p className="text-xl lg:text-2xl text-white/90 leading-relaxed font-light">
-                                    Fostering systematic and coordinated co-generation of evidence within varied African contexts through
-                                    small grants and mentorship programs.
-                                </p>
-                            </div>
+                            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                                ARIN Africa
+                                <span className="block text-blue-400 mt-2">Fellowship Programs</span>
+                            </h1>
 
-                            <div className="flex flex-wrap justify-center items-center gap-8 text-white/80">
-                                <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3">
-                                    <DollarSign className="w-6 h-6 text-cyan-300" />
-                                    <div>
-                                        <div className="text-lg font-semibold text-white">$2,000 - $5,000</div>
-                                        <div className="text-sm text-white/70">Grant Range</div>
-                                    </div>
+                            <p className="text-xl text-slate-300 mb-8 leading-relaxed">
+                                Fostering systematic and coordinated co-generation of evidence within varied African contexts through
+                                small grants and mentorship programs.
+                            </p>
+
+                            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-lg">
+                                <DollarSign className="w-5 h-5 text-blue-400" />
+                                <div>
+                                    <div className="text-sm text-slate-400">Grant Range</div>
+                                    <div className="text-lg font-semibold">$2,000 - $5,000</div>
                                 </div>
-                                {/* <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3">
-                                    <Users className="w-6 h-6 text-cyan-300" />
-                                    <div>
-                                        <div className="text-lg font-semibold text-white">Mentorship</div>
-                                        <div className="text-sm text-white/70">Included</div>
-                                    </div>
-                                </div> */}
-                                {/* <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3">
-                                    <Globe className="w-6 h-6 text-cyan-300" />
-                                    <div>
-                                        <div className="text-lg font-semibold text-white">Africa-wide</div>
-                                        <div className="text-sm text-white/70">Coverage</div>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                    <div className="mb-20">
-                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/50">
-                            <div className="flex items-center mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mr-4">
-                                    <FileText className="w-6 h-6 text-white" />
-                                </div>
-                                <h2 className="text-3xl font-bold text-gray-800">Background and rationale</h2>
+                {/* Main Content */}
+                <div className="max-w-6xl mx-auto px-6 py-16">
+                    {/* ARIN Mini Grants Section */}
+                    <section className="mb-24">
+                        <div className="mb-10">
+                            <div className="inline-flex items-center gap-2 mb-4">
+                                <Award className="w-6 h-6 text-blue-600" />
+                                <h2 className="text-3xl font-bold text-slate-900">ARIN Mini Grants</h2>
                             </div>
-                            <div className="text-gray-700 leading-relaxed space-y-4">
-                                <p>
-                                    There is a broad consensus that an evidence-informed development agenda is essential for achieving
-                                    long-term, inclusive development growth in Africa. This is reflected in both Agenda 2063 and the
-                                    Science, Technology and Innovation Strategy for Africa (STISA) 2024. These frameworks call on African
-                                    countries to significantly increase their investment in research and development (R&D) by attaining at
-                                    least 1% of their gross domestic product (GDP). This investment is crucial for building Africa&apos;s
-                                    technical expertise, improving research infrastructure, fostering innovation and entrepreneurship, and
-                                    creating a policy environment that propels &ldquo;Africa&apos;s transition to an innovation-led and
-                                    evidence-informed knowledge-based economy&rdquo;.
-                                </p>
-                                <p>
-                                    Furthermore, a critical need exists for both evidence-based policymaking and the effective sharing of
-                                    this evidence across diverse African contexts, overcoming the bilingual divide that can be a barrier.
-                                    In response to this, recent decades have witnessed a surge in research and policy activities across
-                                    various sectors, particularly in health, energy, agriculture, science and technology, and more
-                                    recently, climate change. However, research efforts on the continent remain fragmented, with limited
-                                    capacity retention, opportunities for in-continent learning, and inadequate networking among
-                                    researchers, policymakers, and practitioners. Additionally, challenges persist in publishing research
-                                    and developing strong scientific leadership, as evidenced by the limited number of African-led
-                                    research outputs. Compounding these issues is that most African researchers struggle to secure
-                                    sufficient domestic and international funding to generate the empirically grounded evidence necessary
-                                    for practical policy decisions.
-                                </p>
-                                <p>
-                                    It is within this context that ARIN established the ARIN Africa Evidence-Informed Policy Fellowship
-                                    program. This program brings together fellows to collaborate on generating evidence and sharing
-                                    lessons learned across the continent. However, even fellows face challenges in securing opportunities
-                                    and funding to pursue demand-driven empirical research.
-                                </p>
-                                <p>
-                                    In recognition of the persistent funding constraints faced by many talented African scholars with
-                                    significant research potential, ARIN has established the ARIN Mini-grant and Mentorship Scheme. This
-                                    initiative directly addresses the dearth of opportunities and budgetary limitations hindering in-depth
-                                    contextual analyses across diverse African regions and countries.
-                                </p>
-                            </div>
+                            <p className="text-slate-600 text-lg">
+                                Explore our current and upcoming funding opportunities for African researchers
+                            </p>
                         </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/50">
-                            <div className="flex items-center mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mr-4">
-                                    <Target className="w-6 h-6 text-white" />
+                        {/* Category Tabs */}
+                        <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-200 pb-6">
+                            <button
+                                onClick={() => setSelectedCategory("all")}
+                                className={`px-5 py-2 rounded-lg font-medium transition-all ${selectedCategory === "all"
+                                    ? "bg-slate-900 text-white"
+                                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                    }`}
+                            >
+                                All ({grantExamples.length})
+                            </button>
+                            <button
+                                onClick={() => setSelectedCategory("active")}
+                                className={`px-5 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${selectedCategory === "active"
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                    }`}
+                            >
+                                <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+                                Active ({categorizedGrants.active.length})
+                            </button>
+                            <button
+                                onClick={() => setSelectedCategory("upcoming")}
+                                className={`px-5 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${selectedCategory === "upcoming"
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                    }`}
+                            >
+                                <Clock className="w-4 h-4" />
+                                Upcoming ({categorizedGrants.upcoming.length})
+                            </button>
+                            <button
+                                onClick={() => setSelectedCategory("completed")}
+                                className={`px-5 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${selectedCategory === "completed"
+                                    ? "bg-slate-600 text-white"
+                                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                    }`}
+                            >
+                                <CheckCircle className="w-4 h-4" />
+                                Completed ({categorizedGrants.completed.length})
+                            </button>
+                        </div>
+
+                        {/* Grants Grid */}
+                        <div className="space-y-4">
+                            {filteredGrants.map((grant, index) => {
+                                const statusConfig = getStatusConfig(grant.status)
+                                const StatusIcon = statusConfig.icon
+
+                                return (
+                                    <div
+                                        key={index}
+                                        onClick={() => handleGrantClick(grant.id)}
+                                        className="group cursor-pointer bg-white border border-slate-200 rounded-xl p-6 hover:border-blue-500 hover:shadow-lg transition-all duration-300"
+                                    >
+                                        <div className="flex items-start justify-between mb-4">
+                                            <div className="flex-1">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span
+                                                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-${statusConfig.color}-100 text-${statusConfig.color}-700`}
+                                                    >
+                                                        <div className={`w-2 h-2 rounded-full ${statusConfig.dotColor}`}></div>
+                                                        {statusConfig.label}
+                                                    </span>
+                                                    <span className="text-sm text-slate-500 flex items-center gap-1">
+                                                        <Calendar className="w-4 h-4" />
+                                                        {grant.date}
+                                                    </span>
+                                                </div>
+                                                <h3 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                                    {grant.title}
+                                                </h3>
+                                                <p className="text-slate-600 leading-relaxed">{grant.description}</p>
+                                            </div>
+                                            <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all flex-shrink-0 ml-4" />
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </section>
+
+                    {/* Background Section */}
+                    <section className="mb-24">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-1 h-8 bg-blue-500 rounded-full"></div>
+                            <h2 className="text-3xl font-bold text-slate-900">Background and Rationale</h2>
+                        </div>
+                        <div className="prose prose-lg max-w-none text-slate-700 space-y-4">
+                            <p>
+                                There is a broad consensus that an evidence-informed development agenda is essential for achieving
+                                long-term, inclusive development growth in Africa. This is reflected in both Agenda 2063 and the
+                                Science, Technology and Innovation Strategy for Africa (STISA) 2024. These frameworks call on African
+                                countries to significantly increase their investment in research and development (R&D) by attaining at
+                                least 1% of their gross domestic product (GDP). This investment is crucial for building Africa&apos;s
+                                technical expertise, improving research infrastructure, fostering innovation and entrepreneurship, and
+                                creating a policy environment that propels &ldquo;Africa&apos;s transition to an innovation-led and
+                                evidence-informed knowledge-based economy&rdquo;.
+                            </p>
+                            <p>
+                                Furthermore, a critical need exists for both evidence-based policymaking and the effective sharing of
+                                this evidence across diverse African contexts, overcoming the bilingual divide that can be a barrier.
+                                In response to this, recent decades have witnessed a surge in research and policy activities across
+                                various sectors, particularly in health, energy, agriculture, science and technology, and more
+                                recently, climate change. However, research efforts on the continent remain fragmented, with limited
+                                capacity retention, opportunities for in-continent learning, and inadequate networking among
+                                researchers, policymakers, and practitioners. Additionally, challenges persist in publishing research
+                                and developing strong scientific leadership, as evidenced by the limited number of African-led
+                                research outputs. Compounding these issues is that most African researchers struggle to secure
+                                sufficient domestic and international funding to generate the empirically grounded evidence necessary
+                                for practical policy decisions.
+                            </p>
+                            <p>
+                                It is within this context that ARIN established the ARIN Africa Evidence-Informed Policy Fellowship
+                                program. This program brings together fellows to collaborate on generating evidence and sharing
+                                lessons learned across the continent. However, even fellows face challenges in securing opportunities
+                                and funding to pursue demand-driven empirical research.
+                            </p>
+                            <p>
+                                In recognition of the persistent funding constraints faced by many talented African scholars with
+                                significant research potential, ARIN has established the ARIN Mini-grant and Mentorship Scheme. This
+                                initiative directly addresses the dearth of opportunities and budgetary limitations hindering in-depth
+                                contextual analyses across diverse African regions and countries.
+                            </p>
+                        </div>
+                    </section>
+
+                    {/* Purpose and Objectives Grid */}
+                    <section className="mb-24">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Purpose */}
+                            <div>
+                                <div className="flex items-center gap-3 mb-6">
+                                    <Target className="w-6 h-6 text-purple-600" />
+                                    <h2 className="text-2xl font-bold text-slate-900">Purpose of the Mini-Grants</h2>
                                 </div>
-                                <h2 className="text-3xl font-bold text-gray-800">Purpose of the Mini-Grants</h2>
-                            </div>
-                            <div className="text-gray-700 leading-relaxed space-y-4">
-                                <p>
+                                <p className="text-slate-700 leading-relaxed">
                                     ARIN is committed to fostering systematic and coordinated co-generation of evidence within varied
                                     African contexts. The ARIN Small Grant and Mentorship Scheme achieves this by providing small grants
                                     and facilitating mentorship among its beneficiaries. This program aims to guide researchers in
@@ -202,113 +341,101 @@ export default function MiniGrantsPage() {
                                     November 2024 in Nairobi, Kenya.
                                 </p>
                             </div>
-                        </div>
 
-                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/50">
-                            <div className="flex items-center mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mr-4">
-                                    <Lightbulb className="w-6 h-6 text-white" />
+                            {/* Objectives */}
+                            <div>
+                                <div className="flex items-center gap-3 mb-6">
+                                    <Lightbulb className="w-6 h-6 text-amber-600" />
+                                    <h2 className="text-2xl font-bold text-slate-900">Specific Objectives</h2>
                                 </div>
-                                <h2 className="text-3xl font-bold text-gray-800">Specific Objectives</h2>
-                            </div>
-                            <div className="space-y-6">
-                                <div className="border-l-4 border-green-400 pl-6">
-                                    <h3 className="font-semibold text-gray-800 mb-2">
-                                        To strengthen Evidence-Based Policymaking in Africa:
-                                    </h3>
-                                    <p className="text-gray-700">
-                                        The mini-grants seek to focus on activities that improve the understanding of the science-policy
-                                        interface, develop national expertise in evidence-based policy, and identify gaps in incorporating
-                                        evidence into decision-making processes.
-                                    </p>
-                                </div>
-                                <div className="border-l-4 border-blue-400 pl-6">
-                                    <h3 className="font-semibold text-gray-800 mb-2">To cultivate a Community of Evidence Leaders:</h3>
-                                    <p className="text-gray-700">
-                                        Through the mini-grants, ARIN aims to build a cohort of African researchers and policymakers who
-                                        champion evidence-based approaches and possess the skills to identify evidence needs and promote its
-                                        utilization across the continent.
-                                    </p>
-                                </div>
-                                <div className="border-l-4 border-purple-400 pl-6">
-                                    <h3 className="font-semibold text-gray-800 mb-2">To enhance African Knowledge Production:</h3>
-                                    <p className="text-gray-700">
-                                        Through the mini-grants, ARIN emphasizes the program&apos;s goal of generating African-led knowledge
-                                        products like book volumes and special issues that contribute to knowledge leadership and inform
-                                        development agendas aligned with Africa&apos;s strategic frameworks.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Value and Activities */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/50">
-                            <div className="flex items-center mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mr-4">
-                                    <DollarSign className="w-6 h-6 text-white" />
-                                </div>
-                                <h2 className="text-3xl font-bold text-gray-800">Value of the Grants</h2>
-                            </div>
-                            <div className="text-center mb-6">
-                                <div className="bg-gradient-to-r from-orange-100 to-red-100 rounded-2xl p-6 border border-orange-200/50">
-                                    <div className="text-4xl font-bold text-orange-600 mb-2">$2,000 - $5,000</div>
-                                    <div className="text-gray-600 text-lg">
-                                        ARIN provides mini-grants of between USD2000 and USD5000 to the Fellows.
+                                <div className="space-y-4">
+                                    <div className="pl-4 border-l-2 border-blue-500">
+                                        <h3 className="font-semibold text-slate-900 mb-1">
+                                            Strengthen Evidence-Based Policymaking in Africa
+                                        </h3>
+                                        <p className="text-slate-600 text-sm">
+                                            Improve understanding of the science-policy interface and develop national expertise in
+                                            evidence-based policy.
+                                        </p>
+                                    </div>
+                                    <div className="pl-4 border-l-2 border-blue-500">
+                                        <h3 className="font-semibold text-slate-900 mb-1">Cultivate a Community of Evidence Leaders</h3>
+                                        <p className="text-slate-600 text-sm">
+                                            Build a cohort of African researchers and policymakers who champion evidence-based approaches.
+                                        </p>
+                                    </div>
+                                    <div className="pl-4 border-l-2 border-purple-500">
+                                        <h3 className="font-semibold text-slate-900 mb-1">Enhance African Knowledge Production</h3>
+                                        <p className="text-slate-600 text-sm">
+                                            Generate African-led knowledge products that contribute to knowledge leadership and inform
+                                            development agendas.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </section>
 
-                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/50">
-                            <div className="flex items-center mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mr-4">
-                                    <BookOpen className="w-6 h-6 text-white" />
+                    {/* Value and Activities */}
+                    <section className="mb-24">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Value */}
+                            <div className="bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200 rounded-xl p-8">
+                                <div className="flex items-center gap-3 mb-6">
+                                    <DollarSign className="w-6 h-6 text-orange-600" />
+                                    <h2 className="text-2xl font-bold text-slate-900">Value of the Grants</h2>
                                 </div>
-                                <h2 className="text-3xl font-bold text-gray-800">Activities of the mini grants</h2>
+                                <div className="text-center py-8">
+                                    <div className="text-5xl font-bold text-orange-600 mb-2">$2,000 - $5,000</div>
+                                    <p className="text-slate-700">
+                                        ARIN provides mini-grants of between USD2000 and USD5000 to the Fellows.
+                                    </p>
+                                </div>
                             </div>
-                            <div className="space-y-4">
-                                <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4 border border-indigo-200/50">
-                                    <h3 className="font-semibold text-gray-800 mb-2">Capacity Building:</h3>
-                                    <p className="text-gray-700 text-sm">
-                                        ARIN and Taylor & Francis will co-host regular capacity-building webinars and workshops, equipping
-                                        young African researchers with the necessary skills to navigate the academic publishing landscape.
-                                        This includes the launch of a Research Publishing Academy, modelled after Taylor & Francis&apos;
-                                        successful program in South Asia.
-                                    </p>
+
+                            {/* Activities */}
+                            <div>
+                                <div className="flex items-center gap-3 mb-6">
+                                    <BookOpen className="w-6 h-6 text-indigo-600" />
+                                    <h2 className="text-2xl font-bold text-slate-900">Activities</h2>
                                 </div>
-                                <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-4 border border-blue-200/50">
-                                    <h3 className="font-semibold text-gray-800 mb-2">Publication Opportunities:</h3>
-                                    <p className="text-gray-700 text-sm">
-                                        The partnership will explore avenues to increase the visibility and impact of African research. This
-                                        includes co-publishing book series with dedicated editorial boards.
-                                    </p>
-                                </div>
-                                <div className="bg-gradient-to-r from-teal-50 to-green-50 rounded-xl p-4 border border-teal-200/50">
-                                    <h3 className="font-semibold text-gray-800 mb-2">Researcher Engagement:</h3>
-                                    <p className="text-gray-700 text-sm">
-                                        The joint effort will prioritize continuous engagement with researchers. ARIN and Taylor & Francis
-                                        will develop a roadmap for the next six months, about co-branded marketing strategies and
-                                        interactive sessions to foster knowledge sharing and collaboration.
-                                    </p>
+                                <div className="space-y-4">
+                                    <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                                        <h3 className="font-semibold text-slate-900 mb-2">Capacity Building</h3>
+                                        <p className="text-slate-700 text-sm">
+                                            Regular webinars and workshops equipping young African researchers with academic publishing
+                                            skills through the Research Publishing Academy.
+                                        </p>
+                                    </div>
+                                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                        <h3 className="font-semibold text-slate-900 mb-2">Publication Opportunities</h3>
+                                        <p className="text-slate-700 text-sm">
+                                            Co-publishing book series with dedicated editorial boards to increase visibility and impact of
+                                            African research.
+                                        </p>
+                                    </div>
+                                    <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
+                                        <h3 className="font-semibold text-slate-900 mb-2">Researcher Engagement</h3>
+                                        <p className="text-slate-700 text-sm">
+                                            Co-branded marketing strategies and interactive sessions to foster knowledge sharing and
+                                            collaboration.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
                     {/* Support Section */}
-                    <div className="mb-20">
-                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/50">
-                            <div className="flex items-center mb-6">
-                                <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4">
-                                    <Users className="w-6 h-6 text-white" />
-                                </div>
-                                <h2 className="text-3xl font-bold text-gray-800">
+                    <section className="mb-24">
+                        <div className="bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200 rounded-xl p-8">
+                            <div className="flex items-center gap-3 mb-6">
+                                <Users className="w-6 h-6 text-slate-900" />
+                                <h2 className="text-2xl font-bold text-slate-900">
                                     Support ARIN&apos;s Research-Policy Fellowship Program
                                 </h2>
                             </div>
-                            <div className="text-gray-700 leading-relaxed space-y-4">
+                            <div className="space-y-4 text-slate-700">
                                 <p>
                                     Various funding sources, including dedicated grant funding, private sector investment, and
                                     philanthropic contributions support the ARIN mini-grant program. We are very grateful to our donors
@@ -320,12 +447,12 @@ export default function MiniGrantsPage() {
                                     financially to the ARIN Research-Policy Fellowship Program, please contact Amon Mtunji, ARIN&apos;s
                                     Finance Manager, at A.mtunji@arin-africa.org.
                                 </p>
-                                <div className="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl p-6 border border-cyan-200/50">
-                                    <p className="text-gray-700">
+                                <div className="bg-white border border-blue-200 rounded-lg p-6 mt-6">
+                                    <p className="text-slate-700">
                                         For more information about ARIN&apos;s mini grants see this{" "}
                                         <button
                                             onClick={handleDocumentClick}
-                                            className="font-semibold text-cyan-600 hover:text-cyan-700 underline inline-flex items-center gap-1 transition-colors duration-200"
+                                            className="font-semibold text-blue-600 hover:text-blue-700 underline inline-flex items-center gap-1 transition-colors"
                                         >
                                             Document
                                             <ExternalLink className="w-4 h-4" />
@@ -334,47 +461,7 @@ export default function MiniGrantsPage() {
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    {/* ARIN Mini Grants Examples */}
-                    <div className="mb-16">
-                        <div className="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/50">
-                            <div className="flex items-center mb-8">
-                                <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mr-4">
-                                    <Award className="w-6 h-6 text-white" />
-                                </div>
-                                <h2 className="text-3xl font-bold text-gray-800">ARIN Mini Grants</h2>
-                            </div>
-                            <div className="space-y-6">
-                                {grantExamples.map((grant, index) => (
-                                    <div
-                                        key={index}
-                                        className="group cursor-pointer transform hover:scale-[1.02] transition-all duration-300"
-                                        onClick={() => handleGrantClick(grant.id)}
-                                    >
-                                        <div className="bg-gradient-to-r from-white to-gray-50 rounded-2xl p-6 border border-gray-200/50 hover:border-emerald-300/50 hover:shadow-xl transition-all duration-300">
-                                            <div className="flex items-start justify-between mb-4">
-                                                <h3 className="text-xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors duration-300 flex-1 pr-4">
-                                                    {grant.title}
-                                                </h3>
-                                                <div className="flex items-center text-gray-500 text-sm">
-                                                    <Calendar className="w-4 h-4 mr-2" />
-                                                    {grant.date}
-                                                </div>
-                                            </div>
-                                            <p className="text-gray-600 mb-4 leading-relaxed">{grant.description}</p>
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex items-center text-emerald-600 font-semibold group-hover:text-emerald-700 transition-colors duration-300">
-                                                    <span className="mr-3">read more</span>
-                                                    <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    </section>
                 </div>
             </div>
 

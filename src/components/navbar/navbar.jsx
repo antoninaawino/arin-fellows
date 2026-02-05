@@ -41,16 +41,27 @@ const ARINNavbar = () => {
                 { name: 'ARIN Fellows', href: '/fellows/arin' },
                 { name: 'Accountable Adaptation Fellows', href: '/fellows/accountable-adaptation' },
                 { name: 'SDG Fellows', href: '/fellows/sdg' },
-                { name: 'Leeps Fellows', href: '/fellows/leeps' },
+                { name: 'LEEPS Fellows', href: '/fellows/leeps' },
+                { name: 'NDC Fellowship', href: '/ndc-fellowship' },
+
 
             ]
         },
-        { name: 'Summer School', href: '/summer-school' },
+        {
+            name: 'Summer School',
+            href: '#',
+            dropdown: [
+                { name: 'Summer School', href: '/summer-school' },
+                { name: 'NDC Academy', href: '/ndc-academy' },
+
+
+
+            ]
+        },
 
         { name: 'Mini Grants', href: '/mini-grants' },
         { name: 'Friday Reviews', href: '/friday-reviews' },
-        { name: 'NDC Fellowship', href: '/ndc-fellowship' },
-        { name: 'NDC Academy', href: '/ndc-academy' },
+        // { name: 'NDC Academy', href: '/ndc-academy' },
     ];
 
     return (
