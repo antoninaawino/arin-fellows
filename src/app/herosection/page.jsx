@@ -1,6 +1,21 @@
 "use client";
 import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic';
 import { Users, BookOpen, ArrowRight, Award, Globe, Sparkles, Play, Volume2 } from "lucide-react"
+import peopleData from '../../../public/pdfs/fellows.json';
+
+// Dynamically import the map component (no SSR for Leaflet)
+const AfricaMap = dynamic(() => import('../people-distribution/Africaleafletmap'), {
+    ssr: false,
+    loading: () => (
+        <div className="w-full h-[600px] bg-white/50 backdrop-blur-sm rounded-3xl flex items-center justify-center border border-white/20">
+            <div className="text-center">
+                <div className="w-16 h-16 border-4 border-[#14234d] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-gray-600 font-medium">Loading interactive map...</p>
+            </div>
+        </div>
+    ),
+});
 
 export default function MultiFellowshipHero() {
     const [isVisible, setIsVisible] = useState(false)
@@ -225,7 +240,7 @@ export default function MultiFellowshipHero() {
                 </div>
 
                 {/* Interactive Stats Cards */}
-                <div className={`max-w-6xl mx-auto transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                <div className={`max-w-6xl mx-auto mb-20 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {stats.map((stat, index) => (
                             <div
@@ -270,6 +285,63 @@ export default function MultiFellowshipHero() {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </div>
+
+                {/* NEW: Interactive Map Section */}
+                <div className={`max-w-7xl mx-auto mb-20 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                    {/* Section Header */}
+                    <div className="text-center mb-12">
+                        <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#14234d]/10 via-blue-500/10 to-purple-500/10 backdrop-blur-sm rounded-full px-6 py-2.5 mb-6 border border-white/20 shadow-lg">
+                            <Globe className="w-4 h-4 text-[#14234d]" />
+                            <span className="text-[#14234d] text-sm font-semibold tracking-wide">
+                                GLOBAL NETWORK
+                            </span>
+                        </div>
+
+                        <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
+                            <span className="bg-gradient-to-r from-[#14234d] via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                                Fellows Across Africa
+                            </span>
+                        </h2>
+
+                        <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
+                            Explore our interactive map to see where our 200+ fellows are making an impact across 38+ countries
+                        </p>
+                    </div>
+
+                    {/* Map Container with Enhanced Styling */}
+                    <div className="relative">
+                        {/* Glow Effect Behind Map */}
+                        <div className="absolute -inset-4 bg-gradient-to-r from-[#14234d]/10 via-blue-500/10 to-purple-500/10 rounded-3xl blur-2xl opacity-60"></div>
+
+                        {/* Map Wrapper with Glassmorphism */}
+                        <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-4 md:p-6 border border-white/20 overflow-hidden">
+                            {/* Decorative Corner Elements */}
+                            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-[#14234d]/5 to-transparent rounded-br-full"></div>
+                            <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-blue-500/5 to-transparent rounded-tl-full"></div>
+
+                            {/* Map Content with unique key to prevent re-initialization */}
+                            <div className="relative z-10 rounded-2xl overflow-hidden" style={{ height: '600px' }}>
+                                <AfricaMap peopleData={peopleData} key="hero-africa-map" />
+                            </div>
+
+                            {/* Map Legend/Info Bar */}
+                            <div className="mt-6 flex flex-wrap gap-4 justify-center items-center text-sm">
+                                <div className="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-lg">
+                                    <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                    <span className="text-gray-700 font-medium">Fellows Location</span>
+                                </div>
+                                <div className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-lg">
+                                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                    <span className="text-gray-700 font-medium">Click countries for details</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Floating Elements Around Map */}
+                        <div className="absolute -top-6 -left-6 w-20 h-20 bg-gradient-to-br from-green-400/30 to-emerald-400/30 rounded-2xl rotate-12 blur-sm animate-float"></div>
+                        <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-gradient-to-br from-blue-400/30 to-cyan-400/30 rounded-full blur-sm animate-float-delayed"></div>
                     </div>
                 </div>
             </div>
