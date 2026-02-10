@@ -170,4 +170,12 @@ export const allFellows = [
     bio: "Mazignada Sika LIMAZIE holds a Ph.D. in Economics from the University of Lomé. Her research focuses on the economic impact of climate change, climate adaptation, digital technologies, rural entrepreneurship, rural development, food security, and household well-being. She is currently conducting a study on the role of digital technologies in enhancing transparency and accountability in climate adaptation projects in rural Togo. This research aims to identify the most relevant digital tools to strengthen local participation and optimize feedback mechanisms, contributing to more inclusive and effective governance of adaptation initiatives. She has published several scientific articles covering various fields in Africa and has collaborated with national institutions and international organizations on projects aimed at promoting innovative solutions to improve agricultural productivity, food security, and the economic resilience of rural communities. She is also a recipient of several prestigious research programs and fellowships, including the FORJE Program of the Observatoire de la Francophonie Économique (OFÉ) and the One Planet Fellowship of African Women in Agricultural Research and Development (AWARD). She is currently a consultant and associate researcher at the Research Team in Agricultural and Applied Economics (ERE2A) at the University of Lomé.",
     category: "accountable",
   },
+  {
+    id: "af47",
+    name: "Patricia Mwangi, PhD ",
+    image: "/img/arin-fellows/Patricia_Headshot.jpg",
+    title: "Geospatial Engineer",
+    bio: "Patricia is a Geospatial Engineer with over ten years working experience. She graduated from Nairobi University with a Bachelors degree in Geospatial Engineering and proceeded to University of Florence, Italy, to pursue a Masters degree in Geomatics & Natural Resources Evaluation. She completed her PhD from Kenyatta University and the focus of her research was modelling the spatial relationship between built-up volume densities and surface urban heat islands. Her current research interests are related to urban developments, land cover change, air quality, surface temperature changes and climate change using remote sensing and GIS technologies. She currently lecturers at Kenyatta University in the Department of Spatial and Environmental Planning.",
+    category: "arin",
+  },
 ];
