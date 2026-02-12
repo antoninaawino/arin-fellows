@@ -47,8 +47,8 @@ export default function FellowsOverview() {
 
         },
         {
-            title: "Leeps Fellows ",
-            description: "Meet our Africa LEEPS fellows contributing to evidence-informed policymaking and sustainable development across Africa"
+            title: "LEEPS Fellows ",
+            description: "Meet our Africa LEEPS Fellows contributing to evidence-informed policymaking and sustainable development across Africa"
             , link: "/fellows/leeps",
             icon: Globe,
             color: "from-green-500 to-green-600",

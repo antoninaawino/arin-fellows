@@ -114,7 +114,7 @@ export default function MultiFellowshipHero() {
 
                     {/* Main Title with Gradient Effect */}
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-tight">
-                        <span className="block bg-gradient-to-r from-[#14234d] via-blue-600 to-purple-600 bg-clip-text text-transparent animate-gradient mb-3">
+                        <span className="block text-[#14234d] text-4xl md:text-5xl lg:text-6xl bg-clip-text  animate-gradient mb-3">
                             ARIN Fellows
                         </span>
                         <span className="block text-[#14234d] text-4xl md:text-5xl lg:text-6xl">
