@@ -43,7 +43,7 @@ const ARINNavbar = () => {
                 { name: 'SDG Synergy Fellows', href: '/fellows/sdg' },
                 { name: 'LEEPS Fellows', href: '/fellows/leeps' },
                 { name: 'NDC Finance Fellowship', href: '/ndc-fellowship' },
-
+                { name: 'AI Fellows', href: '/fellows/ai' },
 
             ]
         },
